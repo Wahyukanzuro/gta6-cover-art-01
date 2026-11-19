@@ -1,0 +1,201 @@
+/* Vice State Cover Studio — editor styles.
+ * Fonts are files under app/fonts (SIL Open Font License), loaded here
+ * with @font-face so the app works fully offline. */
+
+@font-face {
+  font-family: 'Anton';
+  src: url('fonts/Anton-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pacifico';
+  src: url('fonts/Pacifico-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PT Sans';
+  src: url('fonts/PTSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PT Sans';
+  src: url('fonts/PTSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #12081c;
+  color: #f4ecff;
+  font-family: 'PT Sans', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  background: linear-gradient(90deg, #2b0f22, #1c0b2e 55%, #12081c);
+  border-bottom: 2px solid #ff2e88;
+}
+
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand-mark {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-family: Anton, sans-serif;
+  font-size: 26px;
+  color: #1a0a12;
+  background: linear-gradient(135deg, #ffc233, #ff2e88);
+  box-shadow: 0 0 18px rgba(255, 46, 136, 0.55);
+}
+.brand h1 {
+  margin: 0;
+  font-family: Anton, sans-serif;
+  font-size: 26px;
+  letter-spacing: 1px;
+  color: #fff;
+}
+.brand h1 span { color: #ff5ea8; }
+.brand p { margin: 2px 0 0; color: #c9b8dd; font-size: 13px; }
+
+.top-actions { display: flex; gap: 10px; }
+
+.btn {
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-family: 'PT Sans', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #ffc233, #ff2e88);
+  color: #1a0a12;
+  box-shadow: 0 2px 14px rgba(255, 46, 136, 0.45);
+}
+.btn-ghost {
+  background: transparent;
+  color: #ffd7f2;
+  border: 2px solid #ff5ea8;
+}
+.btn-wide { width: 100%; background: #2b0f22; color: #ffd7f2; border: 2px dashed #ff5ea8; }
+.btn:hover { filter: brightness(1.12); }
+
+.layout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 20px;
+  max-width: 1560px;
+  margin: 0 auto;
+}
+
+.preview-col { flex: 1 1 auto; min-width: 0; }
+.preview-wrap {
+  background: #000;
+  border: 1px solid #3d2354;
+  border-radius: 10px;
+  overflow: hidden;
+}
+#preview { display: block; width: 100%; height: auto; cursor: grab; touch-action: none; }
+#preview:active { cursor: grabbing; }
+.hint { color: #c9b8dd; font-size: 13px; margin: 10px 2px 0; }
+.status { color: #ffd23e; font-size: 13px; margin: 4px 2px 0; min-height: 18px; }
+
+.controls { flex: 0 0 340px; display: flex; flex-direction: column; gap: 14px; }
+.card {
+  background: #1e0f2e;
+  border: 1px solid #3d2354;
+  border-radius: 10px;
+  padding: 14px;
+}
+.card h2 { margin: 0 0 10px; font-size: 15px; letter-spacing: 0.4px; color: #ffd7f2; }
+.card-note { margin: 0 0 10px; color: #c9b8dd; font-size: 13px; }
+
+.photo-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+.photo-thumb {
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #000;
+}
+.photo-thumb img { display: block; width: 100%; height: 52px; object-fit: cover; }
+.photo-thumb.active { border-color: #ffd23e; box-shadow: 0 0 0 2px rgba(255, 210, 62, 0.5); }
+
+.field { display: block; margin-bottom: 10px; font-size: 13px; color: #c9b8dd; }
+.field input[type="text"] {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #3d2354;
+  background: #12081c;
+  color: #fff;
+  font-family: 'PT Sans', sans-serif;
+  font-size: 15px;
+}
+.field input[type="range"] { width: 100%; accent-color: #ff2e88; }
+.field-row { display: flex; gap: 10px; }
+.field-row .field { flex: 1; }
+
+.seg { display: flex; gap: 8px; }
+.seg button {
+  flex: 1;
+  padding: 10px 6px;
+  border-radius: 8px;
+  border: 1px solid #3d2354;
+  background: #12081c;
+  color: #f4ecff;
+  font-family: 'PT Sans', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+.seg button.active { border-color: #ffd23e; background: #3a1c4d; color: #ffd23e; }
+.seg-3 button { font-size: 12px; line-height: 1.5; }
+
+.grades { display: flex; flex-direction: column; gap: 8px; }
+.grades button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #3d2354;
+  background: #12081c;
+  color: #f4ecff;
+  font-family: 'PT Sans', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left;
+}
+.grades button.active { border-color: #ffd23e; background: #3a1c4d; }
+.swatch { width: 34px; height: 20px; border-radius: 4px; flex: 0 0 auto; }
+.sw-sunset { background: linear-gradient(90deg, #ff7a2f, #ff2e88, #78148c); }
+.sw-neon { background: linear-gradient(90deg, #ff00aa, #7828ff, #00d6ff); }
+.sw-gold { background: linear-gradient(90deg, #ffba42, #ff7828); }
+.sw-noir { background: linear-gradient(90deg, #1e0046, #0a001e); }
+.sw-bubble { background: linear-gradient(90deg, #ff6ec8, #8c3cff); }
+
+.fineprint { color: #8d7aa3; font-size: 11px; line-height: 1.5; margin: 0 2px; }
