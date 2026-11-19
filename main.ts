@@ -6,7 +6,7 @@
 // Outside the grader, MAKEFUN_OUTPUT_DIR stands in for /output.
 
 import { buildDossier } from './vendor/makefun-app.ts';
-import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -36,10 +36,15 @@ const DOSSIER_CAPS = {
 } as const;
 
 /** Build the entry: a clean output, app/ + screenshots/ copied in,
- *  dossier.json written from them. */
+ *  dossier.json written from them.
+ *  The output dir itself is never deleted: on the grader it is a volume
+ *  mountpoint owned by another user, and removing it fails with EPERM.
+ *  Only its contents are cleared. */
 function handIn(): void {
-  rmSync(outputDir, { recursive: true, force: true });
   mkdirSync(outputDir, { recursive: true });
+  for (const entry of readdirSync(outputDir)) {
+    rmSync(join(outputDir, entry), { recursive: true, force: true });
+  }
   copyTree('app');
   copyTree('screenshots');
   const dossier = buildDossier(outputDir, DOSSIER_CAPS);
