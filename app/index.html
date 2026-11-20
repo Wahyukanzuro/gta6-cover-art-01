@@ -1,9 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vice State — Cover Studio</title>
+<title>Vice State Cover Studio — GTA 6-style cover art</title>
+<meta name="description" content="Turn any photo into GTA 6-style cover art. Three layouts, five Vice grades, print finish, PNG export. Runs fully offline in your browser.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,96 +12,72 @@
   <div class="brand">
     <span class="brand-mark">VS</span>
     <div>
-      <h1>Vice State <span>Cover Studio</span></h1>
-      <p>Turn your photos into GTA-style cover art — sunset, neon, six panels, one sunset.</p>
+      <h1>VICE STATE <span>Cover Studio</span></h1>
+      <p class="tagline">Turn any photo into GTA&nbsp;6-style cover art — in your browser, offline.</p>
     </div>
   </div>
-  <div class="top-actions">
-    <button id="surpriseBtn" class="btn btn-ghost" type="button">Surprise me</button>
-    <button id="exportBtn" class="btn btn-primary" type="button">Export PNG</button>
+  <div class="top-meta">
+    <span class="pill">VOL. 06</span>
+    <span class="pill pill-gold">EST. 2026</span>
   </div>
 </header>
 
 <main class="layout">
-  <section class="preview-col">
-    <div class="preview-wrap">
-      <canvas id="preview" width="920" height="518"></canvas>
+  <section class="stage-col" aria-label="Cover preview">
+    <div class="stage-wrap">
+      <canvas id="stage" width="1080" height="1080" aria-label="Cover preview. Drag a panel to pan its photo."></canvas>
+      <p class="stage-hint">Drag any panel to pan its photo &middot; the preview is the square cover &middot; exports are pixel-exact</p>
     </div>
-    <p class="hint">Click a panel to select it &nbsp;·&nbsp; drag inside it to move its photo &nbsp;·&nbsp; everything stays on your machine</p>
-    <p id="statusLine" class="status">Loading photos and fonts…</p>
+    <div class="export-row">
+      <button type="button" class="export-btn" data-export="1080x1080">Export square &middot; 1080&times;1080</button>
+      <button type="button" class="export-btn" data-export="1080x1350">Export portrait &middot; 1080&times;1350</button>
+      <button type="button" class="export-btn" data-export="1920x1080">Export wide &middot; 1920&times;1080</button>
+    </div>
   </section>
 
-  <aside class="controls">
+  <aside class="controls" aria-label="Cover controls">
     <section class="card">
-      <h2>1 · Your photos</h2>
-      <p class="card-note">Click a photo to put it in the selected panel. Uploads never leave this machine.</p>
-      <button id="uploadBtn" class="btn btn-wide" type="button">+ Add your photos…</button>
-      <input id="uploadInput" type="file" accept="image/*" multiple hidden>
-      <div id="photoStrip" class="photo-strip"></div>
+      <h2>Layout</h2>
+      <div id="layout-buttons" class="seg-row" role="group" aria-label="Cover layout"></div>
+      <h2>Grade</h2>
+      <div id="grade-swatches" class="grade-row" role="group" aria-label="Colour grade"></div>
     </section>
 
     <section class="card">
-      <h2>2 · Selected panel — <span id="panelName">Panel 1 · Hero</span></h2>
-      <label class="field">Location label
-        <input id="labelInput" type="text" value="OCEAN DRIVE" maxlength="24">
+      <h2>Words</h2>
+      <label class="field">Title
+        <input id="title-input" type="text" value="VICE STATE" maxlength="24" autocomplete="off">
       </label>
-      <div class="field-row">
-        <label class="field">Time
-          <input id="timeInput" type="text" value="6:42 PM" maxlength="10">
-        </label>
-        <label class="field">Flavor line
-          <input id="flavorInput" type="text" value="LOOKING FOR TROUBLE" maxlength="28">
-        </label>
-      </div>
-      <label class="field">Zoom
-        <input id="zoomRange" type="range" min="1" max="2.5" step="0.05" value="1">
-      </label>
-    </section>
-
-    <section class="card">
-      <h2>3 · Layout</h2>
-      <div class="seg">
-        <button type="button" data-layout="collage" class="active">Collage · hero + 5</button>
-        <button type="button" data-layout="grid">Grid · 6 panels</button>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>4 · Grade</h2>
-      <div class="grades">
-        <button type="button" data-grade="sunset" class="active"><span class="swatch sw-sunset"></span>Vice Sunset</button>
-        <button type="button" data-grade="neon"><span class="swatch sw-neon"></span>Neon Nights</button>
-        <button type="button" data-grade="gold"><span class="swatch sw-gold"></span>Golden Hour</button>
-        <button type="button" data-grade="noir"><span class="swatch sw-noir"></span>Palm Noir</button>
-        <button type="button" data-grade="bubble"><span class="swatch sw-bubble"></span>Bubblegum</button>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>5 · Export size</h2>
-      <div class="seg seg-3">
-        <button type="button" data-size="1080x1080">Square<br>1080 × 1080</button>
-        <button type="button" data-size="1080x1350">Portrait<br>1080 × 1350</button>
-        <button type="button" data-size="1920x1080" class="active">Wide<br>1920 × 1080</button>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>6 · Words</h2>
-      <label class="field">Big title
-        <input id="titleInput" type="text" value="VICE STATE" maxlength="18">
-      </label>
-      <label class="field">Neon subtitle
-        <input id="subtitleInput" type="text" value="Neon Tide" maxlength="24">
+      <label class="field">Script subtitle
+        <input id="script-input" type="text" value="Neon Tide" maxlength="24" autocomplete="off">
       </label>
       <label class="field">Tagline
-        <input id="taglineInput" type="text" value="ONE COAST · NO RULES · COMING SOON" maxlength="48">
+        <input id="tagline-input" type="text" value="SUNSHINE &middot; SIN &middot; SPEED" maxlength="48" autocomplete="off">
       </label>
     </section>
 
-    <p class="fineprint">Vice State Studio is a fan-made cover maker. Not affiliated with Rockstar Games. All built-in photos were made with an image model. Fonts: Anton, Pacifico and PT Sans under the SIL Open Font License.</p>
+    <section class="card">
+      <h2>Print finish</h2>
+      <div class="toggles">
+        <label class="toggle"><input id="toggle-halftone" type="checkbox" checked> Halftone print</label>
+        <label class="toggle"><input id="toggle-grain" type="checkbox" checked> Film grain</label>
+        <label class="toggle"><input id="toggle-ribbon" type="checkbox" checked> Collector&rsquo;s ribbon</label>
+        <label class="toggle"><input id="toggle-seal" type="checkbox" checked> Gold seal</label>
+      </div>
+      <button type="button" id="surprise-btn" class="surprise-btn">Surprise me</button>
+    </section>
+
+    <section class="card">
+      <h2>Photos</h2>
+      <p class="card-note">Pick a sample or upload your own. Uploads are read on this page only — nothing is sent anywhere.</p>
+      <div id="panel-list"></div>
+    </section>
   </aside>
 </main>
+
+<footer class="foot">
+  <p>Vice State Cover Studio &middot; an unofficial fan-made tool. Not affiliated with Rockstar Games or Take-Two Interactive. All photos are samples or your own uploads.</p>
+</footer>
 
 <script src="src/cover.js"></script>
 <script src="src/main.js"></script>
