@@ -3,81 +3,102 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vice State Cover Studio — GTA 6-style cover art</title>
-<meta name="description" content="Turn any photo into GTA 6-style cover art. Three layouts, five Vice grades, print finish, PNG export. Runs fully offline in your browser.">
+<title>Vice State Cover Studio — GTA 6-style cover art, offline</title>
+<meta name="description" content="Turn any photo into GTA 6-style movie-poster cover art, in your browser, offline.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="topbar">
   <div class="brand">
-    <span class="brand-mark">VS</span>
+    <span class="logo" aria-hidden="true">VS</span>
     <div>
       <h1>VICE STATE <span>Cover Studio</span></h1>
-      <p class="tagline">Turn any photo into GTA&nbsp;6-style cover art — in your browser, offline.</p>
+      <p>Turn any photo into GTA 6-style movie-poster cover art — in your browser, offline.</p>
     </div>
   </div>
-  <div class="top-meta">
-    <span class="pill">VOL. 06</span>
-    <span class="pill pill-gold">EST. 2026</span>
+  <div class="top-chips">
+    <span class="chip">VOL. 06</span>
+    <span class="chip gold">EST. 2026</span>
   </div>
 </header>
 
-<main class="layout">
-  <section class="stage-col" aria-label="Cover preview">
-    <div class="stage-wrap">
-      <canvas id="stage" width="1080" height="1080" aria-label="Cover preview. Drag a panel to pan its photo."></canvas>
-      <p class="stage-hint">Drag any panel to pan its photo &middot; the preview is the square cover &middot; exports are pixel-exact</p>
+<main class="studio">
+  <section class="stage-wrap" aria-label="Cover preview">
+    <div class="stage-toolbar">
+      <span class="stage-label">Your cover</span>
+      <div class="size-switch" role="group" aria-label="Preview size">
+        <button type="button" data-size="square">Square</button>
+        <button type="button" data-size="portrait" class="active">Portrait</button>
+        <button type="button" data-size="wide">Wide</button>
+      </div>
+      <span class="hint">Drag a photo to pan · click a panel to select it</span>
     </div>
-    <div class="export-row">
-      <button type="button" class="export-btn" data-export="1080x1080">Export square &middot; 1080&times;1080</button>
-      <button type="button" class="export-btn" data-export="1080x1350">Export portrait &middot; 1080&times;1350</button>
-      <button type="button" class="export-btn" data-export="1920x1080">Export wide &middot; 1920&times;1080</button>
+    <div class="stage-box">
+      <canvas id="stage" width="1080" height="1350"></canvas>
     </div>
+    <p class="offline-note">Runs fully offline — your photos never leave this browser. No Rockstar artwork or fonts.</p>
   </section>
 
   <aside class="controls" aria-label="Cover controls">
-    <section class="card">
+    <section class="panel">
       <h2>Layout</h2>
-      <div id="layout-buttons" class="seg-row" role="group" aria-label="Cover layout"></div>
+      <div id="layout-buttons" class="row"></div>
+    </section>
+
+    <section class="panel">
       <h2>Grade</h2>
-      <div id="grade-swatches" class="grade-row" role="group" aria-label="Colour grade"></div>
+      <div id="grade-buttons" class="grades"></div>
     </section>
 
-    <section class="card">
+    <section class="panel">
       <h2>Words</h2>
-      <label class="field">Title
-        <input id="title-input" type="text" value="VICE STATE" maxlength="24" autocomplete="off">
+      <label>Title
+        <input id="word-title" type="text" maxlength="24" autocomplete="off">
       </label>
-      <label class="field">Script subtitle
-        <input id="script-input" type="text" value="Neon Tide" maxlength="24" autocomplete="off">
+      <label>Script subtitle
+        <input id="word-subtitle" type="text" maxlength="24" autocomplete="off">
       </label>
-      <label class="field">Tagline
-        <input id="tagline-input" type="text" value="SUNSHINE &middot; SIN &middot; SPEED" maxlength="48" autocomplete="off">
+      <label>Tagline
+        <input id="word-tagline" type="text" maxlength="48" autocomplete="off">
       </label>
-    </section>
-
-    <section class="card">
-      <h2>Print finish</h2>
-      <div class="toggles">
-        <label class="toggle"><input id="toggle-halftone" type="checkbox" checked> Halftone print</label>
-        <label class="toggle"><input id="toggle-grain" type="checkbox" checked> Film grain</label>
-        <label class="toggle"><input id="toggle-ribbon" type="checkbox" checked> Collector&rsquo;s ribbon</label>
-        <label class="toggle"><input id="toggle-seal" type="checkbox" checked> Gold seal</label>
+      <label>Press quote
+        <input id="word-quote" type="text" maxlength="64" autocomplete="off">
+      </label>
+      <label>Quote outlet
+        <input id="word-outlet" type="text" maxlength="28" autocomplete="off">
+      </label>
+      <label>Production line
+        <input id="word-production" type="text" maxlength="64" autocomplete="off">
+      </label>
+      <label>Production line 2
+        <input id="word-production2" type="text" maxlength="64" autocomplete="off">
+      </label>
+      <label>Release word
+        <input id="word-coming" type="text" maxlength="20" autocomplete="off">
+      </label>
+      <div class="row toggles">
+        <label class="check"><input id="toggle-halftone" type="checkbox"> Halftone dots</label>
+        <label class="check"><input id="toggle-grain" type="checkbox"> Film grain</label>
       </div>
-      <button type="button" id="surprise-btn" class="surprise-btn">Surprise me</button>
     </section>
 
-    <section class="card">
-      <h2>Photos</h2>
-      <p class="card-note">Pick a sample or upload your own. Uploads are read on this page only — nothing is sent anywhere.</p>
-      <div id="panel-list"></div>
+    <section class="panel">
+      <h2>Cast — role on every panel</h2>
+      <div id="cast-list" class="cast"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Photos — pick a sample or upload your own</h2>
+      <div id="photo-list" class="photos"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Export</h2>
+      <div id="export-buttons" class="row wrap"></div>
+      <button id="surprise-btn" type="button" class="pill wide surprise">Surprise me</button>
     </section>
   </aside>
 </main>
-
-<footer class="foot">
-  <p>Vice State Cover Studio &middot; an unofficial fan-made tool. Not affiliated with Rockstar Games or Take-Two Interactive. All photos are samples or your own uploads.</p>
-</footer>
 
 <script src="src/cover.js"></script>
 <script src="src/main.js"></script>
